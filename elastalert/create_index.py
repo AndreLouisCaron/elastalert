@@ -198,6 +198,7 @@ def main():
             'properties': {
                 'data': {
                     'type': 'object',
+                    'rule': keyword,
                     'enabled': False,
                 },
                 '@timestamp': date,
