@@ -130,8 +130,15 @@ def main():
 
     if(elasticversion > 5):
         mapping = {'type': 'keyword'}
+        date = {
+            'type': 'date',
+        }
     else:
         mapping = {'index': 'not_analyzed', 'type': 'string'}
+        date = {
+            'type': 'date',
+            'format': 'dateOptionalTime',
+        }
 
     print("Mapping used for string:"+str(mapping))
 
@@ -139,14 +146,8 @@ def main():
         'silence': {
             'properties': {
                 'rule_name': mapping,
-                'until': {
-                    'type': 'date',
-                    'format': 'dateOptionalTime',
-                },
-                '@timestamp': {
-                    'type': 'date',
-                    'format': 'dateOptionalTime',
-                },
+                'until': date,
+                '@timestamp': date,
             },
         },
     }
@@ -154,10 +155,7 @@ def main():
         'elastalert_status': {
             'properties': {
                 'rule_name': mapping,
-                '@timestamp': {
-                    'type': 'date',
-                    'format': 'dateOptionalTime',
-                },
+                '@timestamp': date,
             },
         },
     }
@@ -165,18 +163,9 @@ def main():
         'elastalert': {
             'properties': {
                 'rule_name': mapping,
-                '@timestamp': {
-                    'type': 'date',
-                    'format': 'dateOptionalTime',
-                },
-                'alert_time': {
-                    'type': 'date',
-                    'format': 'dateOptionalTime',
-                },
-                'match_time': {
-                    'type': 'date',
-                    'format': 'dateOptionalTime',
-                },
+                '@timestamp': date,
+                'alert_time': date,
+                'match_time': date,
                 'match_body': {
                     'type': 'object',
                     'enabled': False,
@@ -193,10 +182,7 @@ def main():
                     'type': 'object',
                     'enabled': False,
                 },
-                '@timestamp': {
-                    'type': 'date',
-                    'format': 'dateOptionalTime',
-                },
+                '@timestamp': date,
                 'aggregate_id': mapping,
             },
         },
@@ -208,10 +194,7 @@ def main():
                     'type': 'object',
                     'enabled': False,
                 },
-                '@timestamp': {
-                    'type': 'date',
-                    'format': 'dateOptionalTime',
-                },
+                '@timestamp': date,
             },
         },
     }
