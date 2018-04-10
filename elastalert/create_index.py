@@ -129,23 +129,28 @@ def main():
     elasticversion = int(esversion.split(".")[0])
 
     if(elasticversion > 5):
-        mapping = {'type': 'keyword'}
+        keyword = {
+            'type': 'keyword',
+        }
         date = {
             'type': 'date',
         }
     else:
-        mapping = {'index': 'not_analyzed', 'type': 'string'}
+        keyword = {
+            'index': 'not_analyzed',
+            'type': 'string',
+        }
         date = {
             'type': 'date',
             'format': 'dateOptionalTime',
         }
 
-    print("Mapping used for string:"+str(mapping))
+    print("Mapping used for string:" + str(keyword))
 
     silence_mapping = {
         'silence': {
             'properties': {
-                'rule_name': mapping,
+                'rule_name': keyword,
                 'until': date,
                 '@timestamp': date,
             },
@@ -154,7 +159,7 @@ def main():
     ess_mapping = {
         'elastalert_status': {
             'properties': {
-                'rule_name': mapping,
+                'rule_name': keyword,
                 '@timestamp': date,
             },
         },
@@ -162,7 +167,7 @@ def main():
     es_mapping = {
         'elastalert': {
             'properties': {
-                'rule_name': mapping,
+                'rule_name': keyword,
                 '@timestamp': date,
                 'alert_time': date,
                 'match_time': date,
@@ -170,20 +175,20 @@ def main():
                     'type': 'object',
                     'enabled': False,
                 },
-                'aggregate_id': mapping,
+                'aggregate_id': keyword,
             },
         },
     }
     past_mapping = {
         'past_elastalert': {
             'properties': {
-                'rule_name': mapping,
+                'rule_name': keyword,
                 'match_body': {
                     'type': 'object',
                     'enabled': False,
                 },
                 '@timestamp': date,
-                'aggregate_id': mapping,
+                'aggregate_id': keyword,
             },
         },
     }
