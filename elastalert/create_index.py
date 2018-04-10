@@ -160,6 +160,7 @@ def main():
         'elastalert_status': {
             'properties': {
                 'rule_name': keyword,
+                'time_taken': 'float',
                 '@timestamp': date,
             },
         },
