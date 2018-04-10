@@ -128,7 +128,7 @@ def main():
     print("Elastic Version:" + esversion.split(".")[0])
     elasticversion = int(esversion.split(".")[0])
 
-    if(elasticversion > 5):
+    if(elasticversion >= 5):
         keyword = {
             'type': 'keyword',
         }
